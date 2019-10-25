@@ -41,20 +41,20 @@ public class DemogatewayApplication {
 				.route("hystrix_fallback_route", r -> r.host("*.hystrixfallback.org")
 						.filters(f -> f.hystrix(c -> c.setName("slowcmd").setFallbackUri("forward:/hystrixfallback")))
 								.uri("http://httpbin.org"))
-				.route("limit_route", r -> r
+				/*.route("limit_route", r -> r
 					.host("*.limited.org").and().path("/anything/**")
 						.filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter())))
-					.uri("http://httpbin.org"))
+					.uri("http://httpbin.org"))*/
 				.route("websocket_route", r -> r.path("/echo")
 					.uri("ws://localhost:9000"))
 				.build();
 		//@formatter:on
 	}
 
-	@Bean
+	/*@Bean
 	RedisRateLimiter redisRateLimiter() {
 		return new RedisRateLimiter(1, 2);
-	}
+	}*/
 
 	@Bean
 	SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) throws Exception {
