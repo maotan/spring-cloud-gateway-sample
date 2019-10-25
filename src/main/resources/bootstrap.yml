@@ -1,0 +1,26 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://local-test.maidanli.com:10110/eureka/
+spring:
+  application:
+    name: maidanli-zuul
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: maidanli-config
+      profile: temp
+      label: master
+    gateway:
+      routes:
+      - id: maidanli-mall
+        uri: lb://maidanli-mall
+        predicates:
+        - Path=/mall/**
+
+log:
+  mongodb:
+    host: 192.168.0.200
+    port: 27017
+    database: local_logdb_mall
